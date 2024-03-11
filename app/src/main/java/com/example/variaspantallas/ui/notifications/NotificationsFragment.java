@@ -18,8 +18,8 @@ public class NotificationsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        NotificationsViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
+        com.example.fragmentos.ui.notifications.NotificationsViewModel notificationsViewModel =
+                new ViewModelProvider(this).get(com.example.fragmentos.ui.notifications.NotificationsViewModel.class);
 
         binding = FragmentNotificationsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();

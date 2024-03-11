@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/NewFragment"
-        android:name="com.example.variaspantallas.ui.notifications.NotificationsFragment"
+        android:name="com.example.variaspantallas.ui.NewFragment"
         android:label="New_Fragment"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

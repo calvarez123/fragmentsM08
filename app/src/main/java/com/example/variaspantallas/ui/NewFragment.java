@@ -6,7 +6,9 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -37,6 +39,8 @@ public class NewFragment extends Fragment {
     private SensorManager sensorManager;
     private Sensor accelerometer;
     private SensorEventListener sensorListener;
+
+    private GestureDetector gestureDetector;
 
     private long lastClickTime = 0;
 
@@ -111,8 +115,29 @@ public class NewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_, container, false);
+        View view = inflater.inflate(R.layout.fragment_, container, false);
+
+        // Inicializar el detector de gestos
+        gestureDetector = new GestureDetector(requireContext(), new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+                // Manejar el doble tap
+                showToast("Has dado doble click!");
+                return true;
+            }
+        });
+
+        // Asignar un listener al layout para capturar los eventos de toque
+        RelativeLayout layout = view.findViewById(R.id.your_layout_id);
+        layout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // Pasar los eventos de toque al detector de gestos
+                return gestureDetector.onTouchEvent(event);
+            }
+        });
+
+        return view;
     }
 
     @Override
@@ -132,17 +157,6 @@ public class NewFragment extends Fragment {
                 textView.setText(text);
             }
         }
-    }
-
-    // Método para verificar el doble clic
-    private void checkDoubleClick() {
-        long clickTime = System.currentTimeMillis();
-
-        if (clickTime - lastClickTime < 500) {
-            showToast("Has dado doble click!");
-        }
-
-        lastClickTime = clickTime;
     }
 
     // Método para mostrar un Toast
